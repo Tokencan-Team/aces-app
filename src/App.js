@@ -51,8 +51,8 @@ const {Countdown} = Statistic;
 let host = window.location.host;
 
 let dapp = {
-    name: "ASNOW",
-    contractAddress: "25CHRYtgyxS1juHEv5ERh3PyD4X2PZZF529fgWDTLYbZ1K187MAQf4rVk2cBMLnhNL1APH6i1rSt6HGZZE3c3c2s",
+    name: "ACES",
+    contractAddress: "2FrgwB3rm4tiRnACxWeDoEZbe57zaAHPFT7YbYVrUB1VTs8Naoz1j44kLU7ybjXmq14fD81HkTc8gV4tGgikCMr6",
     github: "https://github.com/asnowhero/asnow-app",
     author: "asnow",
     url: host+"/asnow-app/",
@@ -125,8 +125,8 @@ const BuyAsnowForm = Form.create({name: 'form_in_modal1'})(
                                             placeholder={Lang[that.props.lang].account.modal.buyAsnow.amountPlace}
                                             autoComplete="off"/>)}
                         </Form.Item>
-                        <p>Rate: {<span style={{color: '#1DA57A'}}>1 ASNOW = {rate} SERO</span>} , Exchange: {<strong
-                            style={{color: 'rgb(216, 0, 38)'}}>{new BigNumber(this.state.asnow).toFixed(6)}</strong>} ASNOW</p>
+                        <p>Rate: {<span style={{color: '#1DA57A'}}>1 ACES = {rate} AIPP</span>} , Exchange: {<strong
+                            style={{color: 'rgb(216, 0, 38)'}}>{new BigNumber(this.state.asnow).toFixed(6)}</strong>} ACES</p>
                     </Form>
                 </Modal>
             );
@@ -217,7 +217,7 @@ const InvestForm = Form.create({name: 'form_in_modal2'})(
                                       placeholder={referId ? referId : ""} autoComplete="off"/>)}
                         </Form.Item>
                         <Form.Item
-                            label={`${Lang[that.props.lang].account.modal.invest.amount} (Available Balance: ${sero} SERO)`}>
+                            label={`${Lang[that.props.lang].account.modal.invest.amount} (Available Balance: ${sero} AIPP)`}>
                             {getFieldDecorator('AmountSero', {
                                 rules: [{required: true, message: `Please Input Amount! `}],
                             })(<InputNumber min={0} precision={6} max={parseFloat(sero)} step={100}
@@ -227,29 +227,29 @@ const InvestForm = Form.create({name: 'form_in_modal2'})(
                                 that.setState({amount: v, ticketSero: ticketSero});
                                 that.staticTotal();
                             }} allowClear placeholder="0.000000" autoComplete="off"/>)}
-                            <br/>SERO ({Lang[that.props.lang].account.modal.invest.amountTips})
+                            <br/>AIPP ({Lang[that.props.lang].account.modal.invest.amountTips})
                         </Form.Item>
                         <Form.Item label={`${Lang[that.props.lang].account.modal.invest.ticket} (Amount x 10%)`}>
                             {getFieldDecorator('TicketSero', {
-                                rules: [{required: true, message: 'Please input SERO value!'}],
+                                rules: [{required: true, message: 'Please input AIPP value!'}],
                             })(<InputNumber precision={6} disabled={true} min={0} max={parseFloat(sero)} step={100}
                                             style={{width: '40%'}} onChange={(v) => {
                                 that.setState({ticketSero: v});
                                 that.staticTotal();
                             }} allowClear placeholder="0.000000" autoComplete="off"/>)}
-                            <br/> SERO (1 ASNOW
-                            = {rate} SERO){Lang[that.props.lang].account.modal.invest.availableAsnow}: {<span
+                            <br/> AIPP (1 ACES
+                            = {rate} AIPP){Lang[that.props.lang].account.modal.invest.availableAsnow}: {<span
                             style={{color: '#1DA57A'}}>{asnow ? asnow : "0"}</span>}
                         </Form.Item>
                         <p>{Lang[that.props.lang].account.modal.invest.estimate}: <span
-                            style={{color: '#1DA57A'}}>{that.state.amount}</span> (SERO) x <span
+                            style={{color: '#1DA57A'}}>{that.state.amount}</span> (AIPP) x <span
                             style={{color: '#1DA57A'}}>{that.state.estimateLevel} </span>(Times) = <strong
-                            style={{color: 'rgb(216, 0, 38)'}}>{new BigNumber(that.state.amount).multipliedBy(that.state.estimateLevel).toFixed(6)} </strong>SERO
+                            style={{color: 'rgb(216, 0, 38)'}}>{new BigNumber(that.state.amount).multipliedBy(that.state.estimateLevel).toFixed(6)} </strong>AIPP
                         </p>
 
                         <p>{Lang[that.props.lang].account.modal.invest.total} : <strong
-                            style={{color: 'rgb(216, 0, 38)'}}>{this.state.total}</strong> SERO, <strong
-                            style={{color: 'rgb(216, 0, 38)'}}>{this.state.ticketAsnow}</strong> ASNOW</p>
+                            style={{color: 'rgb(216, 0, 38)'}}>{this.state.total}</strong> AIPP, <strong
+                            style={{color: 'rgb(216, 0, 38)'}}>{this.state.ticketAsnow}</strong> ACES</p>
                     </Form>
                 </Modal>
             );
@@ -445,9 +445,9 @@ class ContentPage extends Component {
             let balanceAsnow = 0;
             let balanceObj = currentAccount.Balance;
             balanceObj.forEach(function (value, currency) {
-                if (currency === 'SERO') {
+                if (currency === 'AIPP') {
                     balanceSero = new BigNumber(value).dividedBy(decimal).toFixed(6);
-                } else if (currency === 'ASNOW') {
+                } else if (currency === 'ACES') {
                     balanceAsnow = new BigNumber(value).dividedBy(decimal).toFixed(6);
                 }
             });
@@ -608,7 +608,7 @@ class ContentPage extends Component {
             }
             let amount = form.getFieldValue("Amount");
             try {
-                this.executeMethod("buyAsnow", [], new BigNumber(amount).multipliedBy(decimal).toString(16), "SERO", '', function (res) {
+                this.executeMethod("buyAsnow", [], new BigNumber(amount).multipliedBy(decimal).toString(16), "AIPP", '', function (res) {
                     if (res) {
                         form.resetFields();
                         that.setState({showBuyAsnow: false});
@@ -681,7 +681,7 @@ class ContentPage extends Component {
                 message.warn(Lang[that.state.lang].toast.minInvest);
             } else {
                 try {
-                    this.executeMethod("invest", [referId], new BigNumber(amountSero).multipliedBy(decimal).toString(16), "SERO", password, function (res) {
+                    this.executeMethod("invest", [referId], new BigNumber(amountSero).multipliedBy(decimal).toString(16), "AIPP", password, function (res) {
                         if (res) {
                             form.resetFields();
                             that.setState({showInvest: false});
@@ -727,7 +727,7 @@ class ContentPage extends Component {
     shareProfit() {
         let that = this;
         try {
-            this.executeMethod("triggerStaticProfit", [], "0", "SERO", '', function (res) {
+            this.executeMethod("triggerStaticProfit", [], "0", "AIPP", '', function (res) {
                 if (res) {
                     openNotificationWithIcon('success', 'Successful', `${Lang[that.state.lang].toast.tx}${res}`)
                 } else {
@@ -751,7 +751,7 @@ class ContentPage extends Component {
     withdraw() {
         let that = this;
         try {
-            this.executeMethod("withdrawBalance", [], "0", "SERO", '', function (res) {
+            this.executeMethod("withdrawBalance", [], "0", "AIPP", '', function (res) {
                 if (res) {
                     openNotificationWithIcon('success', 'Successful', `${Lang[that.state.lang].toast.tx}${res}`)
                 } else {
@@ -797,7 +797,7 @@ class ContentPage extends Component {
                 message.warn(Lang[that.state.lang].toast.lessAsnow);
             } else {
                 try {
-                    this.executeMethod("paymentAsnow", [], new BigNumber(amount).multipliedBy(decimal).toString(16), "ASNOW", '', function (res) {
+                    this.executeMethod("paymentAsnow", [], new BigNumber(amount).multipliedBy(decimal).toString(16), "ACES", '', function (res) {
                         if (res) {
                             form.resetFields();
                             that.setState({showBuyTicket: false});
